@@ -1,0 +1,17 @@
+{
+  "name": "static-method",
+  "version": "0.0.0",
+  "description": "Convert a function call into an inline expression",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeremy Morrell <morrell.jeremy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "concat-stream": "^1.4.6",
+    "duplexer2": "0.0.2",
+    "falafel": "^0.3.1",
+    "through2": "^0.5.1"
+  }
+}
