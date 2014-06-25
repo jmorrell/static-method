@@ -4,7 +4,7 @@
   "description": "Convert a function call into an inline expression",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/*"
   },
   "author": "Jeremy Morrell <morrell.jeremy@gmail.com>",
   "license": "MIT",
@@ -13,5 +13,8 @@
     "duplexer2": "0.0.2",
     "falafel": "^0.3.1",
     "through2": "^0.5.1"
+  },
+  "devDependencies": {
+    "mocha": "^1.20.1"
   }
 }
