@@ -1,17 +1,67 @@
 var assert = require('assert');
 var through = require('through2');
 var concat = require('concat-stream');
+var has = require('has');
 
 var staticMethod = require('../');
 
 describe('transform functions', function() {
 
-  it('should pass the source of the function as the first argument', function() {
+  it('should make no transform if nothing is returned', function(done) {
+    var sm = staticMethod({
+      foo: function(src) {
+        // do nothing
+      }
+    });
 
+    var code = "2 + 2; foo(a, b, c); 1 + 1;";
+
+    transform(sm, code, function(out) {
+      assert.equal(code, out);
+      done();
+    });
   });
 
-  it('should pass the AST node as the second argument', function() {
+  it('should pass the source of the function as the first argument', function(done) {
+    var sm = staticMethod({
+      foo: function(src) {
+        assert.equal(src, "foo(a, b, c)");
+      }
+    });
 
+    transform(sm, "2 + 2; foo(a, b, c); 1 + 1;", function(out) {
+      done();
+    });
+  });
+
+  it('should pass the falafel AST node as the second argument', function(done) {
+    var sm = staticMethod({
+      foo: function(src, node) {
+        assert(has(node, "callee"));
+        assert(has(node, "arguments"));
+        assert(has(node, "range"));
+        assert(has(node, "parent"));
+
+        assert.equal(node.source(), "foo(a, b, c)");
+      }
+    });
+
+    transform(sm, "2 + 2; foo(a, b, c); 1 + 1;", function(out) {
+      done();
+    });
+  });
+
+  it('will allow the code to be modified through node#update', function(done) {
+    var sm = staticMethod({
+      foo: function(src, node) {
+        node.update("2 + 2");
+      }
+    });
+
+    transform(sm, "1 + 1; foo(a, b, c); 3 + 3;", function(out) {
+      assert.equal(out, "1 + 1; 2 + 2; 3 + 3;");
+      done();
+    });
   });
 
 });
@@ -61,6 +111,24 @@ describe('convert foo to bar', function() {
 
   it('shouldnt convert zfoo', function(done) {
     test("foo(); zfoo();", "bar(); zfoo();", done);
+  });
+
+  it('nested function calls', function(done) {
+    var src =
+      "foo(\n" +
+      "foobaz(\n" +
+      "foo(a,b,c)\n" +
+      ")\n" +
+      ");";
+
+    var dst =
+      "bar(\n" +
+      "foobaz(\n" +
+      "bar(a,b,c)\n" +
+      ")\n" +
+      ");";
+
+    test(src, dst, done);
   });
 });
 
