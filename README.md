@@ -1,11 +1,10 @@
 # static-method
 
-Replace function calls using esprima. Inspired by [static-module](https://github.com/substack/static-module)
-by [substack](https://github.com/substack).
+Replace function calls using [esprima](http://esprima.org/). 
 
-The goal is to quickly be able to replace specified function calls with a limited amount of fussing
-around with the AST. If your needs are more sophisticated then you should look at [jstransform](https://github.com/facebook/jstransform), 
-[falafel](https://github.com/substack/node-falafel), or go straight for [esprima](http://esprima.org/).
+`static-method` lets you easily replace specific function calls without messing around
+with the syntax tree. It exists as a nice middle ground between [running a regex over your entire codebase](https://i.cloudup.com/-jA5vliKJD.gif)
+and defining a complicated AST transform.
 
 [![Build Status](https://secure.travis-ci.org/jmorrell/static-method.png?branch=master)](http://travis-ci.org/jmorrell/static-method)
 
@@ -23,10 +22,17 @@ var sm = staticMethod({
 process.stdin.pipe(sm).pipe(process.stdout);
 ```
 
+#### Examples:
+
+- [Replace all calls to `foo()` with calls to `bar()`](#replace-all-calls-to-foo-with-calls-to-bar)
+- [Comment out all calls to `eval` and add an alert](#comment-out-all-calls-to-eval-and-add-an-alert)
+- [Add the radix to `parseInt`](#add-the-radix-to-parseint)
+
+
 ## Install
 
 ```zsh
-npm install static-method
+npm install --save static-method
 ```
 
 ## Methods
@@ -171,6 +177,13 @@ parseInt();
 parseInt('5', 10);
 parseInt('5', 10);
 ```
+
+## Alternatives
+
+Inspired by [static-module](https://github.com/substack/static-module) by [substack](https://github.com/substack).
+
+If your needs are more sophisticated then you should look at [jstransform](https://github.com/facebook/jstransform), 
+[falafel](https://github.com/substack/node-falafel), or go straight for [esprima](http://esprima.org/).
 
 ## License
 
