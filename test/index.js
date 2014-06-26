@@ -132,6 +132,31 @@ describe('convert foo to bar', function() {
   });
 });
 
+describe('parseInt', function() {
+  var test;
+
+  beforeEach(function() {
+    test = testTransform(staticMethod({
+      parseInt: function(src, node) {
+        if (node.arguments.length === 1) {
+          return 'parseInt(' + node.arguments[0].raw + ', 10)';
+        }
+      }
+    }));
+  });
+
+  it('should do nothing no arguments are passed', function(done) {
+    test("parseInt();", "parseInt();", done);
+  });
+
+  it('should do nothing if the radix is included', function(done) {
+    test("parseInt('5', 10);", "parseInt('5', 10);", done);
+  });
+
+  it('should add a radix of 10 if no radix is included', function(done) {
+    test("parseInt('5');", "parseInt('5', 10);", done);
+  });
+});
 
 function textStream(string) {
   var stream = through();
