@@ -7,6 +7,8 @@ The goal is to quickly be able to replace specified function calls with a limite
 around with the AST. If your needs are more sophisticated then you should look at [jstransform](https://github.com/facebook/jstransform), 
 [falafel](https://github.com/substack/node-falafel), or go straight for [esprima](http://esprima.org/).
 
+[![Build Status](https://secure.travis-ci.org/jmorrell/static-method.png?branch=master)](http://travis-ci.org/jmorrell/static-method)
+
 ```js
 var staticMethod = require('static-method');
 
