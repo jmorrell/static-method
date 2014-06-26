@@ -1,7 +1,7 @@
 {
   "name": "static-method",
-  "version": "0.1.0",
-  "description": "Convert a function call into an inline expression",
+  "version": "0.1.1",
+  "description": "Easily replace specific function calls without messing around with the syntax tree",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*"
@@ -13,6 +13,21 @@
     "duplexer2": "0.0.2",
     "falafel": "^0.3.1",
     "through2": "^0.5.1"
+  },
+  "keywords": [
+    "ast",
+    "static",
+    "analysis",
+    "esprima",
+    "syntax",
+    "tree",
+    "functions",
+    "replace"
+  ],
+  "homepage": "https://github.com/jmorrell/static-method",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmorrell/static-method.git"
   },
   "devDependencies": {
     "has": "0.0.1",
