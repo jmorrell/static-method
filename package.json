@@ -1,6 +1,6 @@
 {
   "name": "static-method",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Convert a function call into an inline expression",
   "main": "index.js",
   "scripts": {
